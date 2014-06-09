@@ -1,0 +1,27 @@
+ext-all-debug_1
+===========================
+2012-11-27
+===========================
+//增加全局的SESSION超时页面跳转
+在Ext.data.Connection下增加监听requestcomplete事件
+listeners:{
+    'requestcomplete':{  
+        fn:function(conn,response,options){
+        	var ds = Ext.decode(response.responseText);
+        	if(ds.timeout){
+            	window.location.href=context+'/main/timeout.jsp';    
+        	}   
+        }  
+    }  
+}
+
+2013-05-15
+===========================
+注释了一些没有用到的组件，见注释'20130515'
+
+
+
+ext-all.js优化
+===========================
+2012-12-12
+在登录界面引入的ext-all.js进行优化，从原来的700K，压缩为522K

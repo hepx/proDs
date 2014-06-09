@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 动态方法调用，为true时，就可以在struts.xml配置“*”的通配 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.configuration.xm.reload" value="false" />
+	<!-- 默认设置struts的全局上传上限为50M -->
+	<constant name="struts.multipart.maxSize" value="52428800" />
+	<!-- base package -->
+	<package name="pm-base" extends="json-default" abstract="true">
+		<interceptors>
+			<interceptor-stack name="baseStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="json" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="baseStack" />
+		<global-results>
+			<result name="json" type="json">
+				<!-- 过滤掉为空的属性或对象 -->
+				<param name="excludeNullProperties">true</param>
+				<!-- 压缩数据 注：设置true会出现乱码-->
+				<param name="enableGZIP">false</param>
+				<!-- JSON序例化base类 -->
+				<param name="ignoreHierarchy">false</param>
+				<!-- 页面不缓存数据 --> 
+				<param name="noCache">true</param>
+			</result>
+			<result name="timeout.message.page" type="redirect">
+				/main/timeout.jsp
+			</result>
+			<result name="secruity.message.page">
+				/main/secruity.html
+			</result>
+		</global-results>
+	</package>
+	<!-- 平台 package -->
+	<package name="pm-main" extends="pm-base" abstract="true">
+		<interceptors>
+			<interceptor name="timeOut" class="com.web4j.interceptor.TimeOutInterceptor" />
+			<interceptor-stack name="mainStack">
+				<interceptor-ref name="timeOut" />
+				<interceptor-ref name="baseStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mainStack"></default-interceptor-ref>
+	</package>
+	<!-- app package -->
+	<!-- 
+	<package name="pm-app" extends="pm-base" abstract="true">
+		<interceptors>
+			<interceptor name="auth" class="com.web4j.interceptor.AuthorizationInterceptor" />
+			<interceptor-stack name="mainStack">
+				<interceptor-ref name="auth" />
+				<interceptor-ref name="baseStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="mainStack"></default-interceptor-ref>
+	</package>
+	 -->
+</struts>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- 数据源设置 -->
+        <!-- MYSQL -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/prods</property>
+		<!--
+		<property name="hibernate.connection.url">jdbc:mysql://192.168.9.92:3306/prods</property>
+		 -->
+		<property name="hibernate.default_schema">prods</property>
+		<property name="hibernate.connection.username">prods</property>
+		<property name="hibernate.connection.password">prods</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        <!-- 采用C3PO连接池 -->
+		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+       	<!-- 最大连接数 -->
+		<property name="hibernate.c3p0.max_size">150</property>
+		<!-- 最小连接数 -->
+		<property name="hibernate.c3p0.min_size">10</property>
+		<!-- 获得连接的超时时间,如果超过这个时间,会抛出异常，单位毫秒 -->
+		<property name="hibernate.c3p0.timeout">120</property>
+		<!-- 最大的PreparedStatement的数量 -->
+		<property name="hibernate.c3p0.max_statements">100</property>
+		<!-- 每隔120秒检查连接池里的空闲连接 ，单位是秒-->
+		<property name="hibernate.c3p0.idle_test_period">120</property>
+		<!-- 当连接池里面的连接用完的时候，C3P0一下获取的新的连接数 -->
+		<property name="hibernate.c3p0.acquire_increment">5</property>
+		<!-- 每次都验证连接是否可用 -->
+		<property name="hibernate.c3p0.validate">true</property>
+        <!-- 在控制台打印SQL语句 -->
+        <property name="show_sql">true</property>
+        <!-- 自动把实体类与属性映射成数据库中的表与列 -->
+        <property name="hbm2ddl.auto">update</property>
+        <property name="hibernate.format_sql">true</property>
+        
+		<!-- 实体BEAN -->
+        <mapping class="com.web4j.systemplatform.entity.TbUserInfo"/>
+        <mapping class="com.web4j.systemplatform.entity.TbRole"/>
+        <mapping class="com.web4j.systemplatform.entity.TbModule"/>
+        <mapping class="com.web4j.systemplatform.entity.TbFunction"/>
+        <mapping class="com.web4j.systemplatform.entity.TbLogs"/>
+        <mapping class="com.web4j.systemplatform.entity.TbDicInfo"/>
+        <mapping class="com.web4j.systemplatform.entity.TbMobileInfo"/>
+        <mapping class="com.web4j.systemplatform.entity.TbBillInfo"/>
+        <!-- SXD -->
+        <mapping class="com.web4j.sxdplatform.entity.TbNews"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbBuddhismLore"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbBuddhaBook"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbChantingRecord"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbDict"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbSxdVersion"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbBuddhaMusic"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbBuddhaImage"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbArticle"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbPrayRecord"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbSxdUser"/>
+        <mapping class="com.web4j.sxdplatform.entity.TbBuddhaWeibo"/>
+        <!-- 数据采集 -->
+        <mapping class="com.web4j.datacapture.entity.TbWeiboUser"/>
+        <mapping class="com.web4j.datacapture.entity.TbWeiboRecord"/>
+        <!-- 吊丝不寂寞 -->
+        <mapping class="com.web4j.bdgplatform.entity.TbBdgBrRecord"/>
+        <mapping class="com.web4j.bdgplatform.entity.TbBdgArRecord"/>
+        <mapping class="com.web4j.bdgplatform.entity.TbBdgAppWall"/>
+        <mapping class="com.web4j.bdgplatform.entity.TbBdgUser"/>
+        <mapping class="com.web4j.bdgplatform.entity.TbBdgContentPush"/>
+        <mapping class="com.web4j.bdgplatform.entity.TbBdgAppPush"/>
+        <!-- 应用市场 -->
+        <mapping class="com.web4j.marketplatform.entity.TbAppInfo"/>
+        <mapping class="com.web4j.marketplatform.entity.TbAppCategory"/>
+        <!-- 渠道推广 -->
+        <mapping class="com.web4j.qdtgplatform.entity.TbQdtgCvs"/>
+        <mapping class="com.web4j.qdtgplatform.entity.TbQdtgChannel"/>
+        <mapping class="com.web4j.qdtgplatform.entity.TbQdtgRecord"/>
+        <mapping class="com.web4j.qdtgplatform.entity.TbQdtgProduct" />
+        
+    </session-factory>
+</hibernate-configuration>

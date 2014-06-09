@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<!-- sina datacaptrue -->
+	<bean name="sinaJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.web4j.datacapture.jobs.SinaDataCaptureJob" />
+		<property name="name" value="sina_datacapture" />
+		<property name="group" value="job_group" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="weiboUserBean" value-ref="weiboUserBean" />
+				<entry key="logsModel" value-ref="logsModel" />
+			</map>
+		</property>
+	</bean>
+	<!-- tx datacaptrue -->
+	<bean name="txJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.web4j.datacapture.jobs.TxDataCaptureJob" />
+		<property name="name" value="tx_datacapture" />
+		<property name="group" value="job_group" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="size" value="20" />
+			</map>
+		</property>
+	</bean>
+	<!-- bdg time release -->
+	<bean name="bdgTimeReleaseJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.web4j.bdgplatform.jobs.BdgTimeReleaseJob" />
+		<property name="name" value="bdg_timerelease" />
+		<property name="group" value="job_group" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="logsModel" value-ref="logsModel" />
+				<entry key="bdgBrRecordModel" value-ref="bdgBrRecordModel" />
+			</map>
+		</property>
+	</bean>
+	<!-- bdg push content job -->
+	<bean name="bdgPushContentJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.web4j.bdgplatform.jobs.BdgPushContentJob" />
+		<property name="name" value="bdg_pushcontent" />
+		<property name="group" value="job_group" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="logsModel" value-ref="logsModel" />
+				<entry key="bdgContentPushModel" value-ref="bdgContentPushModel" />
+			</map>
+		</property>
+	</bean>
+	<!-- bdg push app job -->
+	<bean name="bdgPushAppJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.web4j.bdgplatform.jobs.BdgPushAppJob" />
+		<property name="name" value="bdg_pushapp" />
+		<property name="group" value="job_group" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="logsModel" value-ref="logsModel" />
+				<entry key="bdgAppPushModel" value-ref="bdgAppPushModel" />
+			</map>
+		</property>
+	</bean>
+	<bean name="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="autoStartup" value="false" />
+		<property name="jobDetails">
+			<list>
+				<ref bean="sinaJobDetail" />
+				<ref bean="txJobDetail"/>
+				<ref bean="bdgTimeReleaseJobDetail"/>
+				<ref bean="bdgPushContentJobDetail"/>
+				<ref bean="bdgPushAppJobDetail"/>
+			</list>
+		</property>
+	</bean>
+</beans>
+	
