@@ -311,9 +311,9 @@ public class UserInfoModel {
 		// 设置主题
 		email.setCharset("UTF-8");
 		email.setSubject("找回密码");
-		email.setFrom("hepanxi@163.com", "平台管理员");
-		String userName = "hepanxi";
-		String password = "19850208@";
+		email.setFrom("", "平台管理员");
+		String userName = "";
+		String password = "@";
 		email.setAuthenticator(new DefaultAuthenticator(userName, password));
 		email.setTLS(true);
 		email.addTo(address, name);
